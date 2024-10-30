@@ -33,5 +33,5 @@ def encodage(documents:list[str], nom_du_fichier_de_sortie:str)->None:
     with open(nom_du_fichier_de_sortie, "w") as fichier_sortie:
         json.dump(data, fichier_sortie, ensure_ascii=False, indent=4)
 
-documents = charger_doc("data/lois.txt")
+documents = charger_doc("data/donees.txt")
 encodage(documents, 'json/document_embeddings.json')

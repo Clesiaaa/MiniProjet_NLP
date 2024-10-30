@@ -36,10 +36,14 @@ def rechercher_documents_similaires(question, embeddings_documents):
 
 # Exemple d'utilisation
 embeddings_documents = chargement_embedding('json/document_embeddings.json')
-question = "Quelles sont les lois sur la liberté d'expression ?"
+question = "Comment est le nouveau téléphone ?"
 tous_les_documents = rechercher_documents_similaires(question, embeddings_documents)
 
 # Afficher les résultats
 print("Documents les plus pertinents :")
+res={}
 for doc_id, texte, score in tous_les_documents:
-    print(f"ID: {doc_id}, Similarité: {score:.4f}, Texte: {texte}")
+    #print(f"ID: {doc_id}, Similarité: {score:.4f}, Texte: {texte}")
+    res[score]=texte
+meilleur_score = sorted(res.keys(), reverse=True)[0]
+print(res[meilleur_score])
