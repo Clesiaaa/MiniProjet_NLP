@@ -13,6 +13,7 @@ def chat(question:str)->str:
     
     return f"Réponse : {reponse_text}\nScore : {score:.4f}"
 
+#source: https://www.youtube.com/watch?v=H7JDoS4vLMU, https://www.youtube.com/watch?v=eE7CamOE-PA&t=395s, chatgpt
 interface = gr.Interface(
     fn=chat,
     inputs="text",
