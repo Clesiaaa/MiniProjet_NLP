@@ -6,9 +6,8 @@ model = SentenceTransformer('sentence-transformers/paraphrase-MiniLM-L6-v2')
 def charger_doc(chemin:str)->list[str]:
     """charge un document .txt dans une liste"""
     with open(chemin, "r") as fichier:
-
         doc=[]
-
+        
         for ligne in fichier:
             doc.append(ligne.strip())
 

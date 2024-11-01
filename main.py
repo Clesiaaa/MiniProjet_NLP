@@ -1,19 +1,24 @@
-import recherche_similarite
 import gradio as gr
+from recherche_similarite import chargement_embedding, rechercher_documents_similaires
 
-def repondre(question):
-    embeddings_documents = recherche_similarite.chargement_embedding('document_embeddings.json')
-    resultats = recherche_similarite.rechercher_documents_similaires(question, embeddings_documents)
-    reponses = [f"ID: {doc_id}, Similarité: {score:.4f}, Texte: {texte}" for doc_id, texte, score in resultats]
-    return "\n".join(reponses)
+embeddings_documents = chargement_embedding("json/document_embeddings.json")
 
-# Interface Gradio
+def chat(question:str)->str:
+    """Apporte la réponse par rapport à la question posé"""
+    resultats = rechercher_documents_similaires(question, embeddings_documents)
+    
+    meilleur_resultat = resultats[0]
+    reponse_text = meilleur_resultat[1]
+    score = meilleur_resultat[2]
+    
+    return f"Réponse : {reponse_text}\nScore : {score:.4f}"
+
 interface = gr.Interface(
-    fn=repondre,
+    fn=chat,
     inputs="text",
     outputs="text",
-    title="Recherche de Documents Similaires",
-    description="Entrez votre question pour rechercher des documents similaires."
+    title="MiniNLP",
+    description="Posez une question et recevez la réponse la plus pertinente avec un score de similarité",
 )
 
 if __name__ == "__main__":
